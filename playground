@@ -1,0 +1,43 @@
+let array1 = [8, 8, 7, 2, 1, 7, 9]
+let array2 = [14, 8, 2, 7, 7]
+
+func solve<X: Hashable>(arr1: [X],arr2: [X]){
+    var notPresentArray = [X]()
+    notPresentArray = arr2.filter{!arr1.contains($0)}
+    
+    var dict1 = [X:Int]()
+    var dict2 = [X:Int]()
+    arr1.forEach{index in
+        if let _ = dict1[index]{
+            dict1[index] = dict1[index]! + 1
+        }
+        else{
+            dict1[index] = 1
+        }
+    }
+    arr2.forEach{index in
+        if let _ = dict2[index]{
+            dict2[index] = dict2[index]! + 1
+        }
+        else{
+            dict2[index] = 1
+        }
+    }
+    for index in arr1{
+        if(!notPresentArray.contains(index)){
+            if let count2 = dict2[index]{
+                if(count2 != dict1[index]){
+                    notPresentArray.append(index)
+                }
+            }
+            else{
+                notPresentArray.append(index)
+            }
+        }
+        
+    }
+    print(notPresentArray)
+
+}
+
+solve(arr1: array1,arr2: array2)
